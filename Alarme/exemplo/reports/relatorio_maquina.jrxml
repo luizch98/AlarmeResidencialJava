@@ -13,7 +13,7 @@
 	</style>
 	<queryString language="SQL">
 		<![CDATA[SELECT exemplo.tab_maquina.`ID_ALARME`,
-	exemplo.tab_maquina.`DATA-HORA`,
+	exemplo.tab_maquina.`DATA_HORA`,
 	exemplo.tab_maquina.`DETECCAO`,
 	exemplo.tab_maquina.`SIRENE`
 FROM exemplo.tab_maquina]]>
@@ -22,8 +22,8 @@ FROM exemplo.tab_maquina]]>
 		<property name="com.jaspersoft.studio.field.tree.path" value="tab_maquina"/>
 		<property name="com.jaspersoft.studio.field.label" value="ID_ALARME"/>
 	</field>
-	<field name="DATA-HORA" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="DATA-HORA"/>
+	<field name="DATA_HORA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DATA_HORA"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="tab_maquina"/>
 	</field>
 	<field name="DETECCAO" class="java.lang.String">
@@ -78,49 +78,77 @@ FROM exemplo.tab_maquina]]>
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="59" splitType="Stretch">
+		<band height="72" splitType="Stretch">
 			<frame>
 				<reportElement style="Row" mode="Opaque" x="0" y="16" width="555" height="18" uuid="b50221b5-8254-440b-8c6f-1f0b138c9259"/>
 			</frame>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="196" splitType="Stretch">
 			<staticText>
-				<reportElement x="20" y="19" width="100" height="30" uuid="8262ffd2-e12f-4698-b769-49e53fb9dade"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="10" y="50" width="100" height="21" uuid="13774b84-f592-47b1-bcc8-7ec31348fb42"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.75" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[CODIGO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement isPrintRepeatedValues="false" x="170" y="19" width="100" height="30" uuid="8dc0c3da-cfc9-4008-a35c-ac0a74f17890"/>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[DATA-HORA]]></text>
+				<reportElement x="110" y="50" width="110" height="21" uuid="ba2cde1d-8cdd-4f1d-9dbe-a7ac5df90d0d"/>
+				<box>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[DATA E HORA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="310" y="19" width="100" height="30" uuid="02374f63-a488-465b-944e-6b0586e7eaa4"/>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[DETECCAO]]></text>
+				<reportElement x="220" y="50" width="180" height="21" uuid="40644870-6706-4e80-ba21-7ce10fead773"/>
+				<box>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ESTADO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="450" y="19" width="100" height="30" uuid="76706504-bdb2-4a75-94ae-70626a39c2f5"/>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[SIRENE]]></text>
+				<reportElement x="400" y="50" width="150" height="21" uuid="f783b3eb-4b93-48f3-bb6a-32fbb7a3cda2"/>
+				<box>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[SIRENE EST.]]></text>
 			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="53" splitType="Stretch">
 			<textField>
-				<reportElement x="20" y="79" width="100" height="30" uuid="85f0e9c0-c1bf-4e0f-a3c3-361d0c94436b"/>
+				<reportElement x="10" y="0" width="100" height="20" uuid="85f0e9c0-c1bf-4e0f-a3c3-361d0c94436b"/>
+				<box>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{ID_ALARME}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="170" y="79" width="100" height="30" uuid="fe5e4559-1c0e-4308-908e-cc2582a1393f"/>
-				<textFieldExpression><![CDATA[$F{DATA-HORA}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="310" y="79" width="100" height="30" uuid="b1475b8d-04ff-4579-a65f-337c69ca34ca"/>
+				<reportElement x="220" y="0" width="180" height="20" uuid="b1475b8d-04ff-4579-a65f-337c69ca34ca"/>
+				<box>
+					<pen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{DETECCAO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="450" y="79" width="100" height="30" uuid="83b26b88-ac3d-4c84-91e2-1c78fb932870"/>
+				<reportElement x="400" y="0" width="150" height="20" uuid="83b26b88-ac3d-4c84-91e2-1c78fb932870"/>
+				<box>
+					<pen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{SIRENE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="0" width="110" height="20" uuid="fe5e4559-1c0e-4308-908e-cc2582a1393f"/>
+				<box>
+					<pen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{DATA_HORA}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
