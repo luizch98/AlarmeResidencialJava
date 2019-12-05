@@ -20,7 +20,7 @@ public class MaquinaRepository extends GenericRepository<ComunicacaoMaquina, Lon
 		List<ComunicacaoMaquina> listaMaquina = new ArrayList<ComunicacaoMaquina>();
 		try {
 			TypedQuery<ComunicacaoMaquina> query = this.getEntityManager()
-			                                .createQuery("SELECT c FROM Maquina c", ComunicacaoMaquina.class)
+			                                .createQuery("SELECT c FROM Exemplo c", ComunicacaoMaquina.class)
 											.setFirstResult(primeiro)
 											.setMaxResults(tamanhoPagina);
 		listaMaquina = query.getResultList();

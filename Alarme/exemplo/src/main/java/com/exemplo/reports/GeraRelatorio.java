@@ -46,7 +46,7 @@ public class GeraRelatorio extends JFrame{
 	public void configureFrame() {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setExtendedState(MAXIMIZED_BOTH);
-		setTitle("Visualização de Relatórios do Sistema");
+		setTitle("Visualização de Relatórios do Sistema de Alarme");
 	}
 	
 	
@@ -91,13 +91,6 @@ public class GeraRelatorio extends JFrame{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-
 
 	public Collection<?> getCollection() {
 		return collection;

@@ -11,13 +11,29 @@
 			<style mode="Opaque" backcolor="#F0EFEF"/>
 		</conditionalStyle>
 	</style>
-	<queryString>
-		<![CDATA[]]>
+	<queryString language="SQL">
+		<![CDATA[SELECT exemplo.tab_maquina.`ID_ALARME`,
+	exemplo.tab_maquina.`DATA-HORA`,
+	exemplo.tab_maquina.`DETECCAO`,
+	exemplo.tab_maquina.`SIRENE`
+FROM exemplo.tab_maquina]]>
 	</queryString>
-	<field name="ID_ALARME" class="java.lang.String"/>
-	<field name="DATA-HORA" class="java.lang.String"/>
-	<field name="DETECCAO" class="java.lang.String"/>
-	<field name="SIRENE" class="java.lang.String"/>
+	<field name="ID_ALARME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.tree.path" value="tab_maquina"/>
+		<property name="com.jaspersoft.studio.field.label" value="ID_ALARME"/>
+	</field>
+	<field name="DATA-HORA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DATA-HORA"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tab_maquina"/>
+	</field>
+	<field name="DETECCAO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DETECCAO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tab_maquina"/>
+	</field>
+	<field name="SIRENE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SIRENE"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tab_maquina"/>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -62,50 +78,51 @@
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="181" splitType="Stretch">
+		<band height="59" splitType="Stretch">
 			<frame>
 				<reportElement style="Row" mode="Opaque" x="0" y="16" width="555" height="18" uuid="b50221b5-8254-440b-8c6f-1f0b138c9259"/>
 			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="196" splitType="Stretch">
 			<staticText>
-				<reportElement x="10" y="60" width="100" height="30" uuid="8262ffd2-e12f-4698-b769-49e53fb9dade"/>
+				<reportElement x="20" y="19" width="100" height="30" uuid="8262ffd2-e12f-4698-b769-49e53fb9dade"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[CODIGO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement isPrintRepeatedValues="false" x="160" y="60" width="100" height="30" uuid="8dc0c3da-cfc9-4008-a35c-ac0a74f17890"/>
+				<reportElement isPrintRepeatedValues="false" x="170" y="19" width="100" height="30" uuid="8dc0c3da-cfc9-4008-a35c-ac0a74f17890"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[DATA-HORA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="300" y="60" width="100" height="30" uuid="02374f63-a488-465b-944e-6b0586e7eaa4"/>
+				<reportElement x="310" y="19" width="100" height="30" uuid="02374f63-a488-465b-944e-6b0586e7eaa4"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[DETECCAO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="440" y="60" width="100" height="30" uuid="76706504-bdb2-4a75-94ae-70626a39c2f5"/>
+				<reportElement x="450" y="19" width="100" height="30" uuid="76706504-bdb2-4a75-94ae-70626a39c2f5"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[SIRENE]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="10" y="120" width="100" height="30" uuid="85f0e9c0-c1bf-4e0f-a3c3-361d0c94436b"/>
+				<reportElement x="20" y="79" width="100" height="30" uuid="85f0e9c0-c1bf-4e0f-a3c3-361d0c94436b"/>
 				<textFieldExpression><![CDATA[$F{ID_ALARME}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="160" y="120" width="100" height="30" uuid="fe5e4559-1c0e-4308-908e-cc2582a1393f"/>
+				<reportElement x="170" y="79" width="100" height="30" uuid="fe5e4559-1c0e-4308-908e-cc2582a1393f"/>
 				<textFieldExpression><![CDATA[$F{DATA-HORA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="300" y="120" width="100" height="30" uuid="b1475b8d-04ff-4579-a65f-337c69ca34ca"/>
+				<reportElement x="310" y="79" width="100" height="30" uuid="b1475b8d-04ff-4579-a65f-337c69ca34ca"/>
 				<textFieldExpression><![CDATA[$F{DETECCAO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="440" y="120" width="100" height="30" uuid="83b26b88-ac3d-4c84-91e2-1c78fb932870"/>
+				<reportElement x="450" y="79" width="100" height="30" uuid="83b26b88-ac3d-4c84-91e2-1c78fb932870"/>
 				<textFieldExpression><![CDATA[$F{SIRENE}]]></textFieldExpression>
 			</textField>
 		</band>
-	</columnHeader>
-	<detail>
-		<band height="18" splitType="Stretch"/>
 	</detail>
 	<columnFooter>
 		<band height="32" splitType="Stretch">
@@ -122,14 +139,14 @@
 			<frame>
 				<reportElement mode="Opaque" x="0" y="1" width="555" height="24" forecolor="#D0B48E" backcolor="#000000" uuid="729c3539-f946-4d0e-a0a7-bda2815ea1b0"/>
 				<textField evaluationTime="Report">
-					<reportElement style="Column header" x="513" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="4834e99c-7f6c-485a-b098-50e5187f2ab4"/>
+					<reportElement style="Column header" x="480" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="4834e99c-7f6c-485a-b098-50e5187f2ab4"/>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement style="Column header" x="433" y="0" width="80" height="20" forecolor="#FFFFFF" uuid="9825b46e-76f1-469a-abb8-a1cc27aad685"/>
+					<reportElement style="Column header" x="390" y="0" width="80" height="20" forecolor="#FFFFFF" uuid="9825b46e-76f1-469a-abb8-a1cc27aad685"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="10" isBold="false"/>
 					</textElement>

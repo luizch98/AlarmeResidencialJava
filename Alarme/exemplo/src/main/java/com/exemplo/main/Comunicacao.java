@@ -76,14 +76,10 @@ public class Comunicacao extends JFrame {
 	private String  dir;
 	private JButton btnLiga;
 	private JButton btnDesliga;
-	private JButton btn_sensor1_ON;
-	private JButton btnOff;
-	private JButton btn_sensor2_ON;
-	private JButton btnOff_1;
 	
 	private JTextField txtEstado;
 	private JTextField txtData;
-	private JButton btn_Relatorio;
+	private JButton btn_relatorio1;
 	private JLayeredPane layeredPane_1;
 	private JPanel panel_sensor1;
 	private JPanel panel_sensor2;
@@ -99,6 +95,8 @@ public class Comunicacao extends JFrame {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				
+
 			}
 		});
 	}
@@ -134,18 +132,14 @@ public class Comunicacao extends JFrame {
 	
 	private void createEvents() {
 		
-		btn_Relatorio.addActionListener(new ActionListener() {
+		btn_relatorio1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				
-				MaquinaService maquinaService = new MaquinaService();
-				List<ComunicacaoMaquina> listaMaquina = maquinaService.listarTodosMaquinas();
 				String nomeArquivo = "relatorio_maquina";
 				Map<String, Object> params = new HashMap<String, Object>();
 				params.put(JRParameter.REPORT_LOCALE, new Locale("pt","BR"));
-				GeraRelatorio geraRelatorio = new GeraRelatorio(nomeArquivo, params, listaMaquina);
-				geraRelatorio.callReport();
-				
+				GeraRelatorio geraRelatorio = new GeraRelatorio(nomeArquivo, params);
+				geraRelatorio.generateReports();
 				
 			}
 		});
@@ -194,23 +188,14 @@ public class Comunicacao extends JFrame {
 			
 
 			btnLiga.setEnabled(true);
-
-			btn_sensor1_ON.setEnabled(false);
-			btn_sensor2_ON.setEnabled(false);
-			btnOff.setEnabled(false);
-			btnOff_1.setEnabled(false);
 			btnDesliga.setEnabled(false);
 		
 			
-		}else {
+		}else if(estados == 1 || estados== 2){
 			
 			btnLiga.setEnabled(false);
 			btnDesliga.setEnabled(true);
 			
-			btn_sensor1_ON.setEnabled(true);
-			btn_sensor2_ON.setEnabled(true);
-			btnOff.setEnabled(true);
-			btnOff_1.setEnabled(true);
 
 		}
 		 
@@ -241,13 +226,16 @@ public class Comunicacao extends JFrame {
 	}
 	
 	private void enviarMensagemDesliga(ActionEvent e) {
+        finish=0;
+        start =0;
+        estados = 0;
+        estados2=2;
 		Thread tarefa = new Thread() {
+			
 			String c="D";
 			public void run() {
-			          conexao.sendData(c);
-			          
-			          estados = 0;
-			          estados2=2;
+				
+			          conexao.sendData(c);     
 			          atualizaLabel();
 			          checaBotao(); 
 			          try {
@@ -262,9 +250,8 @@ public class Comunicacao extends JFrame {
 	private void enviarMensagemLiga(ActionEvent e) {
         finish=0;
         start =0;
-        total=0;
         estados = 1;
-        estados2 = 2;
+        estados2=2;
 		Thread tarefa = new Thread() {
 			String c="L";
 			public void run() {
@@ -285,38 +272,46 @@ public class Comunicacao extends JFrame {
 		MaquinaService maquinaService = new MaquinaService();
 		ComunicacaoMaquina maquina = new ComunicacaoMaquina();
 		Date date = new Date();
-		 
 		txtData.setText("Data: "+date);	
 		
-        total = finish - start;
+		
+        total = (finish - start);
+        
         if(total>3 ) {
-        estados2= 1;}
+        estados2= 1;
+        }
+        
+        
 		if(estados == 0) {
 			
 			txtEstado.setText("Desligado");
+
 		
 		}
 		if(estados == 1) {
 			txtEstado.setText("Ligado");
-			
+
 		}
 		if(estados == 2) {
 			txtEstado.setText("Detectado");
-
+			
 		}
 
 		if(estados2 == 1) {
 			textEstado2.setText("Ativado");
-			panel_sirene.setBackground(Color.GREEN);
 			conexao.sendData("S");
+			panel_sirene.setBackground(Color.GREEN);
+			
 		}
+
 		if(estados2 == 2) {
 			textEstado2.setText("Desativado");
-
+			panel_sirene.setBackground(Color.RED);
 			
 		}
 		maquina = pegarDadosMaquinaFromTela();
 		maquinaService.salvarMaquina(maquina);
+
 	}
 	
 	
@@ -388,11 +383,17 @@ public class Comunicacao extends JFrame {
 		layeredPane.add(btnConectar);
 		
 		btnDesconectar = new JButton("Desconectar");
+		btnDesconectar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnDesconectar.setBounds(355, 249, 110, 23);
 		layeredPane.add(btnDesconectar);
 		btnConectar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				criarConexao(e);
+				
+				
 			}
 		});
 		
@@ -419,9 +420,9 @@ public class Comunicacao extends JFrame {
 		 layeredPane_1.add(txtData);
 		 txtData.setColumns(10);
 		 
-		 btn_Relatorio = new JButton("Relatorio");
-		 btn_Relatorio.setBounds(243, 261, 120, 23);
-		 layeredPane_1.add(btn_Relatorio);
+		 btn_relatorio1 = new JButton("Relatorio");
+		 btn_relatorio1.setBounds(233, 266, 120, 23);
+		 layeredPane_1.add(btn_relatorio1);
 		 
 		 JLabel lblDataEHora = new JLabel("Data e Hora:");
 		 lblDataEHora.setBounds(243, 28, 75, 14);
@@ -433,12 +434,12 @@ public class Comunicacao extends JFrame {
 		 
 		 panel_sensor1 = new JPanel();
 		 panel_sensor1.setBackground(Color.RED);
-		 panel_sensor1.setBounds(331, 124, 39, 36);
+		 panel_sensor1.setBounds(341, 121, 39, 36);
 		 layeredPane_1.add(panel_sensor1);
 		 
-		 JPanel panel_sirene = new JPanel();
+		 panel_sirene = new JPanel();
 		 panel_sirene.setBackground(Color.RED);
-		 panel_sirene.setBounds(200, 124, 39, 36);
+		 panel_sirene.setBounds(200, 131, 46, 44);
 		 layeredPane_1.add(panel_sirene);
 		 
 		 panel_sensor2 = new JPanel();
@@ -447,7 +448,7 @@ public class Comunicacao extends JFrame {
 		 layeredPane_1.add(panel_sensor2);
 		 
 		 JLabel lblNewLabel = new JLabel("Sensor1");
-		 lblNewLabel.setBounds(331, 99, 46, 14);
+		 lblNewLabel.setBounds(341, 96, 46, 14);
 		 layeredPane_1.add(lblNewLabel);
 		 
 		 JLabel lblNewLabel_1 = new JLabel("Sensor2");
@@ -469,8 +470,6 @@ public class Comunicacao extends JFrame {
 					String c="A";
 					public void run() {
 						
-
-						while(true) {
 					          conexao.sendData(c);
 					          atualizaLabel();
 					          checaBotao(); 
@@ -480,7 +479,7 @@ public class Comunicacao extends JFrame {
 					          }catch (InterruptedException e) {
 							}
 					}     
-					}
+					
 				};
 				tarefa.start();
 
@@ -506,7 +505,6 @@ public class Comunicacao extends JFrame {
 						String c="B";
 						public void run() {
 							
-							while(true) {
 						          conexao.sendData(c);
 
 						          atualizaLabel();
@@ -516,7 +514,7 @@ public class Comunicacao extends JFrame {
 						          }catch (InterruptedException e) {
 								}
 							}
-						}
+						
 					};
 					tarefa.start();
 		 		
@@ -531,7 +529,6 @@ public class Comunicacao extends JFrame {
 
 		 		finish = (System.currentTimeMillis()/1000);
 		 		estados=1;
-
 		 		panel_sensor1.setBackground(Color.RED);
 		         atualizaLabel();
 		         checaBotao();
@@ -545,11 +542,10 @@ public class Comunicacao extends JFrame {
 		 JButton btnOff_1 = new JButton("OFF");
 		 btnOff_1.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
-		 		
+		 		estados=1;
 		 		panel_sensor2.setBackground(Color.RED);
 		 		finish = (System.currentTimeMillis()/1000);
-		 		estados=1;
-	
+
 		         atualizaLabel();
 		         checaBotao();
 
@@ -567,9 +563,7 @@ public class Comunicacao extends JFrame {
 		 textEstado2.setColumns(10);
 		 textEstado2.setBounds(182, 187, 86, 20);
 		 layeredPane_1.add(textEstado2);
-		 
 
-		 
 
 		btnDesliga.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
